@@ -199,44 +199,6 @@ app.layout = dash_split_pane.DashSplitPane(
 
 
 
-#def parse_contents(contents, filename, date):
-#    content_type, content_string = contents.split(',')
-
-#    decoded = base64.b64decode(content_string)
-#    try:
-#        if 'csv' in filename:
-#            # Assume that the user uploaded a CSV file
-#            df = pd.read_csv(
-#                io.StringIO(decoded.decode('utf-8')))
-#        elif 'xls' in filename:
-#            # Assume that the user uploaded an excel file
-#            df = pd.read_excel(io.BytesIO(decoded))
-#    except Exception as e:
-#        print(e)
-#        return html.Div([
-#            'There was an error processing this file.'
-#        ])
-
-#    return html.Div([
-#        html.H5(filename),
-#        html.H6(datetime.datetime.fromtimestamp(date)),
-
-#        dash_table.DataTable(
-#            df.to_dict('records'),
-#            [{'name': i, 'id': i} for i in df.columns]
-#        ),
-
-#        html.Hr(),  # horizontal line
-
-#        # For debugging, display the raw contents provided by the web browser
-#        html.Div('Raw Content'),
-#        html.Pre(contents[0:200] + '...', style={
-#            'whiteSpace': 'pre-wrap',
-#            'wordBreak': 'break-all'
-#        })
-#    ])
-
-
 
 
 @app.callback(
@@ -269,8 +231,6 @@ def add_row(n_clicks, rows, columns, selectedBloodLactate, selectedVelocity,
 
 
 def parse_contents_plot(HR_df, filename, GUI_df):
-    #HR_df = HR_df.split(',')
-    #decoded = base64.b64decode(HR_df)
     content_type, content_string = HR_df.split(',')
 
     decoded = base64.b64decode(content_string)
@@ -305,7 +265,7 @@ def parse_contents_plot(HR_df, filename, GUI_df):
 
 
         
-@app.callback(Output('splitter', 'children'), # change layout to output-plot
+@app.callback(Output('splitter', 'children'), # change splitter to output-plot and it will work
               Input('upload-data', 'contents'),
               State('upload-data', 'filename'),
               State('table-container_3', 'data'))
