@@ -268,7 +268,7 @@ def parse_contents_plot(HR_df, filename, GUI_df):
 @app.callback(Output('splitter', 'children'), # change splitter to output-plot and it will work
               Input('upload-data', 'contents'),
               State('upload-data', 'filename'),
-              State('table-container_3', 'data'))
+              State('table-container_3', 'data'), prevent_initial_call=True)
 def update_plot(HR_df, filename, GUI_df):
     if filename is not None:
         global pane1
